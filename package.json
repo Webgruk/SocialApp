@@ -18,9 +18,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
-  "devDependencies": {},
   "scripts": {
-    "server": "nodemon index"
+    "server": "nodemon server/index"
   },
   "author": "",
   "license": "ISC",

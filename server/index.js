@@ -10,14 +10,14 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 // ROUTE IMPORT
-import { register } from './controllers/auth.js'
+// import { register } from './controllers/auth.js'
 
 // CONFIGURATIONS
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-dotenv.config({ path: './config/app.env' })
+dotenv.config({ path: './config/config.env' })
 
 const app = express()
 app.use(express.json())
