@@ -10,8 +10,12 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 // ROUTE IMPORT
-// import { register } from './controllers/auth.js'
-
+import { register } from './controllers/auth.js'
+import authRoutes from './routes/auth.js'
+import userRoutes from './routes/user.js'
+import postRoutes from './routes/posts.js'
+import { verifyToken } from './middleware/auth.js'
+import { createPost } from './controllers/posts.js'
 // CONFIGURATIONS
 
 const __filename = fileURLToPath(import.meta.url)
@@ -41,8 +45,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage })
 
-// ROUTES WITH
-// app.post('/auth/reg', upload.single('picture'), register)
+// ROUTES FOR REGISTRAION
+app.post('/auth/reg', upload.single('picture'), register)
+app.post('/posts', verifyToken, upload.single('picture'), createPost)
+
+// ROUTES
+app.use('/auth', authRoutes)
+app.use('/user', userRoutes)
+app.use('/post', postRoutes)
 
 // Mongoose Setup
 const PORT = process.env.PORT || 8080
