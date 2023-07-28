@@ -12,6 +12,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { useSelector } from 'react-redux'
 import { themeSettings } from './theme'
 import { useMemo } from 'react'
+import Navbar from './Pages/navbar/Navbar'
 
 function App() {
   const mode = useSelector((state) => state.mode)
@@ -20,7 +21,8 @@ function App() {
     createRoutesFromElements(
       <Route>
         <Route index element={<Login />} />
-        <Route path="/hame" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/navbar" element={<Navbar />} />
         <Route path="/profile/:userId" element={<Profile />} />
       </Route>,
     ),
