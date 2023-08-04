@@ -1,6 +1,7 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Navigate,
   Route,
   RouterProvider,
 } from 'react-router-dom'
@@ -17,13 +18,22 @@ import Navbar from './Pages/navbar/Navbar'
 function App() {
   const mode = useSelector((state) => state.mode)
   const theme = useMemo(() => createTheme(themeSettings(mode), [mode]))
+  const isAuth = Boolean(useSelector((state) => state.token))
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
         <Route index element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/navbar" element={<Navbar />} />
-        <Route path="/profile/:userId" element={<Profile />} />
+        <Route path="/" element={<Navbar />}>
+          <Route
+            path="home"
+            element={isAuth ? <Home /> : <Navigate to="/" />}
+          />
+          <Route
+            path="profile/:userId"
+            element={isAuth ? <Profile /> : <Navigate to="/" />}
+          />
+        </Route>
       </Route>,
     ),
   )

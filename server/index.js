@@ -18,8 +18,8 @@ import { verifyToken } from './middleware/auth.js'
 import { createPost } from './controllers/posts.js'
 
 //DATA INSERT
-import User from './models/User.js'
-import Post from './models/Post.js'
+// import User from './models/User.js'
+// import Post from './models/Post.js'
 
 import { users, posts } from './data/index.js'
 // CONFIGURATIONS
@@ -42,7 +42,7 @@ app.use('/assets', express.static(path.join(__dirname, 'public/assets')))
 // file storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'public/assets')
+    cb(null, 'server/public/assets')
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname)
@@ -52,13 +52,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 
 // ROUTES FOR REGISTRAION
-app.post('/auth/reg', upload.single('picture'), register)
-app.post('/posts', verifyToken, upload.single('picture'), createPost)
+app.post('/api/auth/register', upload.single('picture'), register)
+app.post('/api/posts', verifyToken, upload.single('picture'), createPost)
 
 // ROUTES
-app.use('/auth', authRoutes)
-app.use('/user', userRoutes)
-app.use('/post', postRoutes)
+app.use('/api/auth', authRoutes)
+app.use('/api/user', userRoutes)
+app.use('/api/post', postRoutes)
 
 // Mongoose Setup
 const PORT = process.env.PORT || 8080
@@ -72,6 +72,6 @@ mongoose
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`))
 
     // User.insertMany(users)
-    Post.insertMany(posts)
+    // Post.insertMany(posts)
   })
   .catch((error) => console.log(`${error} did not connect`))
