@@ -10,7 +10,7 @@ import {
 import { Formik } from 'formik'
 import EditOutLinedIcon from '@mui/icons-material/EditOutlined'
 import * as yup from 'yup'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setLogin } from '../../States'
 import Dropzone from 'react-dropzone'
@@ -50,6 +50,7 @@ function Form() {
   const { palette } = useTheme()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const locate = useLocation()
   const isNonMobile = useMediaQuery('(min-width:600px)')
   const isLogin = pageType === 'login'
   const isRegister = pageType === 'register'
@@ -91,6 +92,7 @@ function Form() {
       const loggedIn = await loggedInResponse.data
       onSubmitProps.resetForm()
 
+      const home = locate.state?.path || '/home'
       if (loggedIn) {
         dispatch(
           setLogin({
@@ -98,7 +100,7 @@ function Form() {
             token: loggedIn.token,
           }),
         )
-        navigate('/home')
+        navigate(home, { replace: true })
       }
     } catch (error) {
       console.error(error)
