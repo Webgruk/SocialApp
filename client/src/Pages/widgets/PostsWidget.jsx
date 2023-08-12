@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PostWidget from './PostWidget'
 import axios from 'axios'
@@ -14,11 +14,14 @@ function PostsWidget({ userId, isProfile }) {
   const dispatch = useDispatch()
   const posts = useSelector((state) => state.posts)
   const token = useSelector((state) => state.token)
-
+  const [sortedPosts, setSortedPosts] = useState([])
   const getPosts = async () => {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
+      },
+      params: {
+        sort: '-createdAt', // Sorting by createdAt field in descending order
       },
     }
     try {
@@ -34,6 +37,9 @@ function PostsWidget({ userId, isProfile }) {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
+      },
+      params: {
+        sort: '-createdAt', // Sorting by createdAt field in descending order
       },
     }
     try {
@@ -54,9 +60,15 @@ function PostsWidget({ userId, isProfile }) {
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    const sortedArray = [...posts] // Create a new array to sort
+    sortedArray.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    setSortedPosts(sortedArray) // Set the sorted array to state
+  }, [posts])
+
   return (
     <>
-      {posts.map(
+      {sortedPosts.map(
         ({
           _id,
           userId,

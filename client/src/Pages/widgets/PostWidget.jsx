@@ -41,8 +41,6 @@ function PostWidget({
   const main = palette.neutral.main
   const primary = palette.primary.main
 
-  // console.log(postUserId)
-
   const patchLike = async () => {
     const config = {
       headers: {
