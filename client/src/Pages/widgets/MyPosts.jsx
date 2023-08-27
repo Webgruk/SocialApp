@@ -32,11 +32,6 @@ import { PropTypes } from 'prop-types'
 MyPosts.propTypes = {
   picturePath: PropTypes.string,
 }
-// const MyPosts = ({ picturePath }) => {
-//
-// }
-
-// export default MyPosts
 
 function MyPosts({ picturePath }) {
   const dispatch = useDispatch()

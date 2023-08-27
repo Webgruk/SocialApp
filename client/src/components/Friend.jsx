@@ -1,7 +1,7 @@
 import { PersonAddOutlined, PersonRemoveOutlined } from '@mui/icons-material'
-import { Box, IconButton, Typography, useTheme } from '@mui/material'
+import { IconButton, Typography, useTheme } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import UserImage from './UserImage'
 import axios from 'axios'
 import { setFriends } from '../States'
@@ -17,7 +17,6 @@ Friend.propTypes = {
 
 function Friend({ friendId, name, subtitle, userPicturePath }) {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const { _id } = useSelector((state) => state.user)
   const token = useSelector((state) => state.token)
   const friends = useSelector((state) => state.user.friends)
@@ -53,13 +52,7 @@ function Friend({ friendId, name, subtitle, userPicturePath }) {
     <FlexBetween>
       <FlexBetween gap="1rem">
         <UserImage image={userPicturePath} size="55px" />
-        <Link
-          // onClick={() => {
-          //   navigate(`/profile/${friendId}`)
-          //   navigate(0)
-          // }}
-          to={`/profile/${friendId}`}
-        >
+        <Link to={`/profile/${friendId}`}>
           <Typography
             color={main}
             variant="h5"

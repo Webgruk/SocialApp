@@ -86,9 +86,9 @@ function Form() {
       const loggedInResponse = await axios.post(
         '/api/auth/login',
         JSON.stringify(values),
-
         config,
       )
+
       const loggedIn = await loggedInResponse.data
       onSubmitProps.resetForm()
 

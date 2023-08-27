@@ -18,6 +18,14 @@ const img = import.meta.env.VITE_IMG_URI
 
 PostWidget.propTypes = {
   comments: PropTypes.any,
+  postId: PropTypes.any,
+  postUserId: PropTypes.any,
+  name: PropTypes.any,
+  description: PropTypes.any,
+  location: PropTypes.any,
+  picturePath: PropTypes.any,
+  userPicturePath: PropTypes.any,
+  likes: PropTypes.any,
 }
 function PostWidget({
   postId,
